@@ -15,7 +15,7 @@ import '../styles/Todo.css'
 
 // Clase
 class Todo extends Component {
-    
+
     // Con state
     // constructor(props) {
     //     super(props)
@@ -29,23 +29,13 @@ class Todo extends Component {
         done: false
     }
 
-    elementoTodo = () => {
-        return (
-            <>
-                {/* Con state */}
-                {/* <p className="list-item">Tarea por hacer</p>
-                <button onClick={() => { this.setState({done: true}) }} className="delete">Cambiar a terminado</button> */}
-                {/* <button className ="delete">Cambiar a terminado</button> */}
-                {/* Con props */}
-                { 
-                this.props.done ? <Checkmark /> : <div style={{width: '36px'}}></div>}
-                {/* { this.props.done && <Checkmark />} */}
-                <p className="list-item">Tarea por hacer</p>
-                {/* <button onClick={() => { this.setState({done: true}) }} className="delete">Cambiar a terminado</button> */}
-                <button className="delete">Cambiar a terminado</button>
-            </>
-        )
-    }
+    // elementoTodo = () => {
+    //     return (
+    //         <>
+
+    //         </>
+    //     )
+    // }
 
     render() {
         return (
@@ -55,14 +45,30 @@ class Todo extends Component {
             // </div>
             // Con props
             <div className={`todo-container ${this.props.done ? 'dim-completed' : ''}`}>
-                { this.elementoTodo() }
+                {/* Con state */}
+                {/* <p className="list-item">Tarea por hacer</p>
+                <button onClick={() => { this.setState({done: true}) }} className="delete">Cambiar a terminado</button> */}
+                {/* <button className ="delete">Cambiar a terminado</button> */}
+                {/* Con props */}
+                { }
+                <Checkmark done={this.props.done} />
+                {/* { this.props.done && <Checkmark />} */}
+                <p onClick={e => this.props.toggleFn(e)} className="list-item" style={{ width: '100px' }}>{this.props.title}</p>
+                {/* <button onClick={() => { this.setState({done: true}) }} className="delete">Cambiar a terminado</button> */}
+                <button
+                    className="delete"
+                    onClick={e => this.props.deleteFn(e)}
+                >Borrar</button>
             </div>
         )
     }
 };
 
 Todo.propTypes = {
-    done: PropTypes.bool
+    done: PropTypes.bool,
+    title: PropTypes.string.isRequired,
+    toggleFn: PropTypes.func.isRequired,
+    deleteFn: PropTypes.func.isRequired
     // done: PropTypes.bool.isRequired
 }
 

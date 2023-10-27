@@ -1,10 +1,14 @@
 import check from '../assets/Checkmark.svg';
 import '../styles/Checkmark.css'
 
-const Checkmark = () =>{
+const Checkmark = ({ done }) => {
     return (
         <div>
-            <img className='image-size' src={check} alt="Checkmark" />
+            {
+                done ?
+                    <img className='image-size' src={check} alt="Checkmark" /> :
+                    <div style={{ width: '36px' }}></div>
+            }
         </div>
     )
 
