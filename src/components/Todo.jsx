@@ -1,4 +1,5 @@
-import { Component } from 'react'
+// import { Component } from 'react'
+import { useState } from 'react'
 import PropTypes from 'prop-types'
 import Checkmark from './Checkmark'
 import '../styles/Todo.css'
@@ -13,8 +14,11 @@ import '../styles/Todo.css'
 //     )
 // }
 
-// Clase
-class Todo extends Component {
+// CLASS
+// class Todo extends Component {
+
+// FUNCTION
+const Todo = ({ toggleFn, deleteFn, done, title }) => {
 
     // Con state
     // constructor(props) {
@@ -25,9 +29,10 @@ class Todo extends Component {
     // }
 
     // Con props
-    state = {
-        done: false
-    }
+    // state = {
+    //     done: false
+    // }
+
 
     // elementoTodo = () => {
     //     return (
@@ -37,31 +42,31 @@ class Todo extends Component {
     //     )
     // }
 
-    render() {
+    // render() {
         return (
             // Con state
             // <div className={`todo-container ${this.state.done ? 'dim-completed' : ''}`}>
             //     { this.elementoTodo() }
             // </div>
             // Con props
-            <div className={`todo-container ${this.props.done ? 'dim-completed' : ''}`}>
+            <div className={`todo-container ${done ? 'dim-completed' : ''}`}>
                 {/* Con state */}
                 {/* <p className="list-item">Tarea por hacer</p>
                 <button onClick={() => { this.setState({done: true}) }} className="delete">Cambiar a terminado</button> */}
                 {/* <button className ="delete">Cambiar a terminado</button> */}
                 {/* Con props */}
                 { }
-                <Checkmark done={this.props.done} />
+                <Checkmark done={done} />
                 {/* { this.props.done && <Checkmark />} */}
-                <p onClick={e => this.props.toggleFn(e)} className="list-item" style={{ width: '100px' }}>{this.props.title}</p>
+                <p onClick={e => toggleFn(e)} className="list-item" style={{ width: '100px' }}>{title}</p>
                 {/* <button onClick={() => { this.setState({done: true}) }} className="delete">Cambiar a terminado</button> */}
                 <button
                     className="delete"
-                    onClick={e => this.props.deleteFn(e)}
+                    onClick={e => deleteFn(e)}
                 >Borrar</button>
             </div>
         )
-    }
+    // }
 };
 
 Todo.propTypes = {
