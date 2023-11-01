@@ -3,6 +3,11 @@
     text-align: center;
 }
 
+.header-container {
+    display: flex;
+    flex-direction: column;
+}
+
 /* .card-header-title {
 
 } */

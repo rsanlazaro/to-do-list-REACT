@@ -45,18 +45,7 @@ const App = () => {
     { title: "Tarea 10", done: false },
   ])
 
-  const [todosOriginales, setTodosOriginales] = useState([
-    { title: "Tarea 1", done: true },
-    { title: "Tarea 2", done: false },
-    { title: "Tarea 3", done: true },
-    { title: "Tarea 4", done: false },
-    { title: "Tarea 5", done: true },
-    { title: "Tarea 6", done: false },
-    { title: "Tarea 7", done: true },
-    { title: "Tarea 8", done: false },
-    { title: "Tarea 9", done: true },
-    { title: "Tarea 10", done: false },
-  ])
+  const [show, setShow] = useState(true)
 
   const handleClick = (event) => {
     // this.setState({
@@ -95,8 +84,11 @@ const App = () => {
   // }
 
   const handleAddTask = (title) => {
-    const itExists = todos.find(element => element.title === title)
-
+    const itExists = todos.find(element => element.title.toLowerCase() === title.toLowerCase())
+    if (title === "") {
+      alert("Ingrese una tarea")
+      return
+    }
     if (itExists) {
       alert("Esta tarea ya existe")
       return
@@ -108,6 +100,15 @@ const App = () => {
       setTodos(todosList.concat([{ title: title, done: false }]))
     }
   }
+
+  const filterTodos = todos.filter(element =>
+    !element.done || element.done === show
+  )
+
+  const handleClickToggleShow = () => {
+    setShow(!show)
+  }
+
 
   // componentDidMount() {
   //   this.setState({
@@ -140,26 +141,30 @@ const App = () => {
   // }
 
   // render() {
-    return (
-      <div className='wrapper'>
-        <div className='card-frame'>
-          <Header counter={todos.length} />
-          <TodoList
-            tasks={todos}
-            toggleFn={handleClickToggleDone}
-            deleteFn={handleClickDelete}
-          />
-          <Form addTaskFn={handleAddTask} />
-          {/* <button onClick={this.handleClickReset}>Reestablecer tareas</button> */}
+  return (
+    <div className='wrapper'>
+      <div className='card-frame'>
+        <Header
+          counter={filterTodos.length}
+          toggleShow={handleClickToggleShow}
+          show={show}
+        />
+        <TodoList
+          tasks={filterTodos}
+          toggleFn={handleClickToggleDone}
+          deleteFn={handleClickDelete}
+        />
+        <Form addTaskFn={handleAddTask} />
+        {/* <button onClick={this.handleClickReset}>Reestablecer tareas</button> */}
 
-          {/* {
+        {/* {
             this.state.showButton ?
             <button onClick={this.handleClick}>Inicializar</button>:
             null
           } */}
-        </div>
       </div>
-    )
+    </div>
+  )
   // }
 }
 
