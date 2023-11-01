@@ -3,7 +3,8 @@ import Form from '../components/Form.jsx'
 import Todo from '../components/Todo.jsx'
 import TodoList from '../components/TodoList.jsx'
 import '../styles/App.css'
-import { Component } from 'react'
+// import { Component } from 'react'
+import { useState } from 'react'
 
 // const App = () => {
 
@@ -18,16 +19,46 @@ import { Component } from 'react'
 //   )
 // }
 
-class App extends Component {
-  state = {
-    todos: [
-    ],
-    todosOriginales: [
-    ],
-    showButton: true,
-  }
+// COMPONENT
+// class App extends Component {
 
-  handleClick = (event) => {
+// FUNCTION
+
+const App = () => {
+
+  // COMPONENT
+  // state = {
+  //   todos: []
+  // }
+
+  // FUNCTION
+  const [todos, setTodos] = useState([
+    { title: "Tarea 1", done: true },
+    { title: "Tarea 2", done: false },
+    { title: "Tarea 3", done: true },
+    { title: "Tarea 4", done: false },
+    { title: "Tarea 5", done: true },
+    { title: "Tarea 6", done: false },
+    { title: "Tarea 7", done: true },
+    { title: "Tarea 8", done: false },
+    { title: "Tarea 9", done: true },
+    { title: "Tarea 10", done: false },
+  ])
+
+  const [todosOriginales, setTodosOriginales] = useState([
+    { title: "Tarea 1", done: true },
+    { title: "Tarea 2", done: false },
+    { title: "Tarea 3", done: true },
+    { title: "Tarea 4", done: false },
+    { title: "Tarea 5", done: true },
+    { title: "Tarea 6", done: false },
+    { title: "Tarea 7", done: true },
+    { title: "Tarea 8", done: false },
+    { title: "Tarea 9", done: true },
+    { title: "Tarea 10", done: false },
+  ])
+
+  const handleClick = (event) => {
     // this.setState({
     //   todos: [
     //     { title: "Tarea 1", done: true },
@@ -45,66 +76,81 @@ class App extends Component {
     // })
   }
 
-  handleClickDelete = (event, index) => {
-    const todos = [...this.state.todos]
-    todos.splice(index, 1)
-    this.setState({ todos })
+  const handleClickDelete = (event, index) => {
+    const todosList = [...todos]
+    todosList.splice(index, 1)
+    setTodos(todosList)
   }
 
-  handleClickToggleDone = (event, index) => {
-    const todos = [...this.state.todos]
-    todos[index].done = !todos[index].done
-    this.setState({ todos })
+  const handleClickToggleDone = (event, index) => {
+    const todosList = [...todos]
+    todosList[index].done = !todosList[index].done
+    setTodos(todosList)
   }
 
-  handleClickReset = (event) => {
-    this.setState({
-      todos: [...this.state.todosOriginales]
-    })
+  // const handleClickReset = (event) => {
+  //   this.setState({
+  //     todos: [...todosOriginales]
+  //   })
+  // }
+
+  const handleAddTask = (title) => {
+    const itExists = todos.find(element => element.title === title)
+
+    if (itExists) {
+      alert("Esta tarea ya existe")
+      return
+    }
+
+    const todosList = [...todos];
+
+    if (!itExists) {
+      setTodos(todosList.concat([{ title: title, done: false }]))
+    }
   }
 
-  componentDidMount() {
-    this.setState({
-      todos: [
-        { title: "Tarea 1", done: true },
-        { title: "Tarea 2", done: false },
-        { title: "Tarea 3", done: true },
-        { title: "Tarea 4", done: false },
-        { title: "Tarea 5", done: true },
-        { title: "Tarea 6", done: false },
-        { title: "Tarea 7", done: true },
-        { title: "Tarea 8", done: false },
-        { title: "Tarea 9", done: true },
-        { title: "Tarea 10", done: false },
-      ],
-      todosOriginales: [
-        { title: "Tarea 1", done: true },
-        { title: "Tarea 2", done: false },
-        { title: "Tarea 3", done: true },
-        { title: "Tarea 4", done: false },
-        { title: "Tarea 5", done: true },
-        { title: "Tarea 6", done: false },
-        { title: "Tarea 7", done: true },
-        { title: "Tarea 8", done: false },
-        { title: "Tarea 9", done: true },
-        { title: "Tarea 10", done: false },
-      ],
-      // showButton: false,
-    })
-  }
+  // componentDidMount() {
+  //   this.setState({
+  //     todos: [
+  //       { title: "Tarea 1", done: true },
+  //       { title: "Tarea 2", done: false },
+  //       { title: "Tarea 3", done: true },
+  //       { title: "Tarea 4", done: false },
+  //       { title: "Tarea 5", done: true },
+  //       { title: "Tarea 6", done: false },
+  //       { title: "Tarea 7", done: true },
+  //       { title: "Tarea 8", done: false },
+  //       { title: "Tarea 9", done: true },
+  //       { title: "Tarea 10", done: false },
+  //     ],
+  //     todosOriginales: [
+  //       { title: "Tarea 1", done: true },
+  //       { title: "Tarea 2", done: false },
+  //       { title: "Tarea 3", done: true },
+  //       { title: "Tarea 4", done: false },
+  //       { title: "Tarea 5", done: true },
+  //       { title: "Tarea 6", done: false },
+  //       { title: "Tarea 7", done: true },
+  //       { title: "Tarea 8", done: false },
+  //       { title: "Tarea 9", done: true },
+  //       { title: "Tarea 10", done: false },
+  //     ],
+  //     // showButton: false,
+  //   })
+  // }
 
-  render() {
+  // render() {
     return (
       <div className='wrapper'>
         <div className='card-frame'>
-          <Header counter={this.state.todos.length} />
+          <Header counter={todos.length} />
           <TodoList
-            tasks={this.state.todos}
-            toggleFn = {this.handleClickToggleDone}
-            deleteFn = {this.handleClickDelete}
+            tasks={todos}
+            toggleFn={handleClickToggleDone}
+            deleteFn={handleClickDelete}
           />
-          <Form />
-          <button onClick={this.handleClickReset}>Reestablecer tareas</button>
+          <Form addTaskFn={handleAddTask} />
+          {/* <button onClick={this.handleClickReset}>Reestablecer tareas</button> */}
 
           {/* {
             this.state.showButton ?
@@ -114,7 +160,7 @@ class App extends Component {
         </div>
       </div>
     )
-  }
+  // }
 }
 
 export default App
